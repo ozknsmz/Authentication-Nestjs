@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  url      = "postgresql://postgres:1234@127.0.0.1:5432/Nest"
+  provider = "postgresql"
+}
+
+model User{
+  id Int @id @default(autoincrement()) 
+  username String @unique
+  password String?
+  name String?
+  userRole User_Role[]
+
+}
+
+model Role{
+  id Int @id @default(autoincrement())
+  user_role Role_type @default(USER)
+  assignedAt DateTime @default(now())
+  author_name String
+  author_id Int @unique
+  userRole User_Role[]
+}
+
+model User_Role{
+  id Int @id @default(autoincrement())
+  user_id Int @unique
+  user User @relation(fields:[user_id], references:[id] )
+  role_id Int @unique
+  role Role @relation(fields:[role_id],references:[id])
+}
+
+enum Role_type{
+    USER
+    ADMIN
+    SUPERADMIN
+}
+
+
