@@ -18,11 +18,18 @@ export class UserController {
     return this.userService.createUser(userData);
   }
 
-  @Delete('/post/:id')
+  @Delete('')
   async deleteUser(
-    @Param('id') usernameid: { id: number; username: string },
+    @Param('id') usernameid: { id:number ; username: string },
   ): Promise<UserModule> {
     return this.userService.deleteUser(usernameid);
   }
 
+  @Get()
+  async getUser(): Promise<UserModule[]> {
+    return this.userService.users({
+      where: {id:2}
+    });
+  }
 }
+

@@ -45,15 +45,21 @@ export class UserService {
     });
   }
 
-  async updateUser(params: {
-    // İki parametreli bir obje alır. Biri update yapılıcak kısım diğeri user.
-    where: Prisma.UserWhereUniqueInput;
-    data: Prisma.UserUpdateInput;
-  }): Promise<User> {
-    const { where, data } = params;
-    return this.prisma.user.update({
-      data,
-      where,
-    });
-  }
+  // async updateUser(params: {
+  //   // İki parametreli bir obje alır. Biri update yapılıcak kısım diğeri user.
+  //   where: Prisma.UserWhereUniqueInput;
+  //   data: Prisma.UserUpdateInput;
+  // }): Promise<User> {
+  //   const { where, data } = params;
+  //   return this.prisma.user.update({
+  //     data,
+  //     where,
+  //   });
+  // }
+
+
+
+
+
+  
 }
