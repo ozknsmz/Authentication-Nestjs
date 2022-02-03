@@ -32,11 +32,11 @@ describe('UserController', () => {
     });
   });
 
-  // describe('deleteUser', () => {
-  //   it('should delete user', async () => {
-  //     const deletedUser = await userService.deleteUser({ username: userN});
-  //     jest.spyOn(userService, 'deleteUser').mockResolvedValue(deletedUser); // TODO : burda bi resolve işlemi yap eğer dönen data doğru ise success mesajı döndür ve datayı sil!
-  //     expect(await userService.deleteUser(deletedUser)).toBe(deletedUser);
-  //   });
-  // });
+  describe('deleteUser', () => {
+    it('should delete user', async () => {
+      const deletedUser = await userService.deleteUser({ username: userN});
+      jest.spyOn(userService, 'deleteUser').mockResolvedValue(deletedUser); // TODO : burda bi resolve işlemi yap eğer dönen data doğru ise success mesajı döndür ve datayı sil!
+      expect(await userService.deleteUser(deletedUser)).toBe(deletedUser);
+    });
+  });
 });

@@ -39,4 +39,16 @@ enum Role_type{
     SUPERADMIN
 }
 
+model Users{
+  id Int @id @default(autoincrement()) 
+  createdAt DateTime @default(now)
+  updatedAt DateTime @default(now)
+
+  name String?
+  password String?
+  description String?
+  price Decimal
+  sku String @unique
+  published Boolean @default(false)
+}
 
