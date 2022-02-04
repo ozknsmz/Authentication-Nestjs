@@ -10,7 +10,7 @@ export class UserDto {
   public name: string;
 
   @IsNotEmpty()
-  @IsString()  // TODO: Unique olma durumunu araştır.
+  @IsString()  // TODO: Unique olma durumunu araştır.https://showcase.ognicki.online/typescript/entities/users/dto/login-user__dto__ts/
   public username: string;
 
   @IsNotEmpty()
