@@ -45,6 +45,7 @@ export class UserService {
     });
   }
 
+
   // async updateUser(params: {
   //   // İki parametreli bir obje alır. Biri update yapılıcak kısım diğeri user.
   //   where: Prisma.UserWhereUniqueInput;
@@ -56,5 +57,4 @@ export class UserService {
   //     where,
   //   });
   // }
-
 }

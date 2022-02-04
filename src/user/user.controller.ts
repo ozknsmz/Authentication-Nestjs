@@ -1,10 +1,24 @@
 import { Controller, Get, Post, Delete, Body, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserModule } from './user.module';
+import { FindOneParams } from './findOneParams';
+import { PrismaService } from 'src/prisma.service';
+import { User, Prisma } from '@prisma/client';
 
-@Controller('user')
+@Controller('')
 export class UserController {
-  constructor(private readonly userService: UserService) {} // user service kullanabilmek için bir constructor oluşturuldu.
+  constructor(
+    private readonly userService: UserService,
+    private prisma: PrismaService,
+  ) {} // user service kullanabilmek için bir constructor oluşturuldu.
+
+  async user(
+    userWhereUniqueInput: Prisma.UserWhereUniqueInput,
+  ): Promise<User | null> {
+    return this.prisma.user.findUnique({
+      where: userWhereUniqueInput,
+    });
+  }
 
   @Post('/user')
   async createUser(
@@ -18,18 +32,18 @@ export class UserController {
     return this.userService.createUser(userData);
   }
 
-  @Delete('')
-  async deleteUser(
-    @Param('id') usernameid: { id:number ; username: string },
-  ): Promise<UserModule> {
-    return this.userService.deleteUser(usernameid);
+  @Delete(':id')
+  async deleteUser(@Param('id') id: string): Promise<UserModule> {
+    return this.prisma.user.delete({ where: { id: Number(id) } });
   }
 
-  @Get()
-  async getUser(): Promise<UserModule[]> {
-    return this.userService.users({
-      where: {id:2}
-    });
+  @Get('users/:id')
+  async getUserById(@Param('id') id: string): Promise<UserModule> {
+    return this.prisma.user.findUnique({ where: { id: Number(id) } });
   }
-}
 
+  @Get('users')
+  async getAllUsers(): Promise<UserModule[]> {
+    return this.prisma.user.findMany()
+  }
+  }

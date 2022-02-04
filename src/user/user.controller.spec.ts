@@ -19,24 +19,26 @@ describe('UserController', () => {
 
   var userN = `${new Date().getTime()}`;
 
-  describe('createUser', () => {
-    it('should create user', async () => {
-      const createdUser = await userService.createUser({
-        username: userN, // her test ettiğinde username değiştir çünkü unique
-        password: '12345',
-        name: 'Özkan',
-      });
-      //await userService.deleteUser({id: createdUser.id});
-      jest.spyOn(userService, 'createUser').mockResolvedValue(createdUser); // TODO : burda bi resolve işlemi yap eğer dönen data doğru ise success mesajı döndür ve datayı sil!
-      expect(await userService.createUser(createdUser)).toBe(createdUser);
-    });
-  });
+  // describe('createUser', () => {
+  //   it('should create user', async () => {
+  //     const createdUser = await userService.createUser({
+  //       username: userN, // her test ettiğinde username değiştir çünkü unique
+  //       password: '12345',
+  //       name: 'Özkan',
+  //     });
+  //     //await userService.deleteUser({id: createdUser.id});
+  //     jest.spyOn(userService, 'createUser').mockResolvedValue(createdUser); // TODO : burda bi resolve işlemi yap eğer dönen data doğru ise success mesajı döndür ve datayı sil!
+  //     expect(await userService.createUser(createdUser)).toBe(createdUser);
+  //   });
+  // });
 
-  describe('deleteUser', () => {
-    it('should delete user', async () => {
-      const deletedUser = await userService.deleteUser({ username: userN});
-      jest.spyOn(userService, 'deleteUser').mockResolvedValue(deletedUser); // TODO : burda bi resolve işlemi yap eğer dönen data doğru ise success mesajı döndür ve datayı sil!
-      expect(await userService.deleteUser(deletedUser)).toBe(deletedUser);
-    });
-  });
+  // describe('deleteUser', () => {
+  //   it('should delete user', async () => {
+  //     const deletedUser = await userService.deleteUser({ id: 6});
+  //     // jest.spyOn(userService, 'deleteUser').mockResolvedValue(deletedUser); // TODO : burda bi resolve işlemi yap eğer dönen data doğru ise success mesajı döndür ve datayı sil!
+  //     // expect(await userService.deleteUser(deletedUser)).toBe(deletedUser);
+  //   });
+  // });
+
+
 });
