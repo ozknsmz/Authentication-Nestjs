@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, Validate } from 'class-validator';
+import { Column } from 'typeorm';
 
 export class UserDto {
   //Controller içerisinde @body() içerisine eklediğin validationpipe sayesinde hata mesajları otomatik döndürülür.
@@ -9,7 +10,7 @@ export class UserDto {
   public name: string;
 
   @IsNotEmpty()
-  @IsString()
+  @IsString()  // TODO: Unique olma durumunu araştır.
   public username: string;
 
   @IsNotEmpty()
