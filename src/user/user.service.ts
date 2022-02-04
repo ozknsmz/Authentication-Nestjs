@@ -38,9 +38,9 @@ export class UserService {
     });
   }
 
-  async deleteUser(getDeleteInput: Prisma.UserWhereUniqueInput): Promise<User> {
+  async deleteUser(id: number): Promise<User> {
     return this.prisma.user.delete({
-      where: getDeleteInput,
+      where: {id},
     });
   }
 
@@ -48,16 +48,9 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
-  async findOne(id: number) {
+  async findOneUser(id: number) {
     return this.prisma.user.findUnique({ where: { id } });
   }
-
-  // async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
-  //   // delete yapılıcak kullanıcının id'si ile işlem yapar.
-  //   return this.prisma.user.delete({
-  //     where, // benden sadece id ve username istiyor.
-  //   });
-  // }
 
   // async updateUser(params: {
   //   // İki parametreli bir obje alır. Biri update yapılıcak kısım diğeri user.

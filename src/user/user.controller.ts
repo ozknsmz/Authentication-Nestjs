@@ -36,10 +36,23 @@ export class UserController {
     return this.userService.createUser(userDto);
   }
 
+  @Get('user/:id')
+  async findUser(@Param('id') id: string): Promise<UserModule> {
+    return this.userService.findOneUser(+id);
+  }
+
   @Delete('deleted/:id')
   async deleteUser(@Param('id') id: string): Promise<UserModule> {
-    return this.prisma.user.delete({ where: { id: Number(id) } });
+    return this.userService.deleteUser(+id);
   }
+
+  
+
+  // @Delete()
+  // async deleteAll(){
+  //   return this.prisma.user.delete();
+  // }
+
 
   // @Post('/user')
   // async createUser(
