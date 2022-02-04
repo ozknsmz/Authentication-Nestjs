@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Delete, Body, Param, HttpCode, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Body,
+  Param,
+  HttpCode,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserModule } from './user.module';
 import { FindOneParams } from './findOneParams';
@@ -21,14 +31,15 @@ export class UserController {
     });
   }
 
-
   @Post()
-  async create(@Body() userDto : UserDto){
-    return this.userService.createUser(userDto)
+  async create(@Body() userDto: UserDto) {
+    return this.userService.createUser(userDto);
   }
 
-
-
+  @Delete('deleted/:id')
+  async deleteUser(@Param('id') id: string): Promise<UserModule> {
+    return this.prisma.user.delete({ where: { id: Number(id) } });
+  }
 
   // @Post('/user')
   // async createUser(
@@ -42,13 +53,13 @@ export class UserController {
   //   return this.userService.createUser(userData);
   // }
 
-//   @Post('user')
-//   async addUser(@Body() data: Prisma.UserCreateInput): Promise<User> {
-//     // user oluşturur.
-//     return this.prisma.user.create({
-//       data,
-//     });    
-// }
+  //   @Post('user')
+  //   async addUser(@Body() data: Prisma.UserCreateInput): Promise<User> {
+  //     // user oluşturur.
+  //     return this.prisma.user.create({
+  //       data,
+  //     });
+  // }
 
   // @Post('/user')
   // @HttpCode(200)
@@ -56,7 +67,6 @@ export class UserController {
   // createUser(@Body() userData: UserDto){
   //   return { data: userData}
   // }
-
 
   // @Get('all/users')
   // async getAllUsers(): Promise<UserModule[]> {
@@ -72,6 +82,4 @@ export class UserController {
   // async getUserById(@Param('id') id: string): Promise<UserModule> {
   //   return this.prisma.user.findUnique({ where: { id: Number(id) } });
   // }
-
-
-  }
+}

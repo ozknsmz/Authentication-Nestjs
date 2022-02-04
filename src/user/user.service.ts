@@ -31,22 +31,26 @@ export class UserService {
       orderBy,
     });
   }
-  
-  async createUser(createUserDto: Prisma.UserCreateInput): Promise<User> {
+
+  async createUser(getUserInput: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
-      data : createUserDto,
+      data: getUserInput,
     });
   }
 
-  async findAll(){
+  async deleteUser(getDeleteInput: Prisma.UserWhereUniqueInput): Promise<User> {
+    return this.prisma.user.delete({
+      where: getDeleteInput,
+    });
+  }
+
+  async findAll() {
     return this.prisma.user.findMany();
   }
 
-  async findOne(id: number){
-    return this.prisma.user.findUnique({ where:{id}})
+  async findOne(id: number) {
+    return this.prisma.user.findUnique({ where: { id } });
   }
-
-
 
   // async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
   //   // delete yapılıcak kullanıcının id'si ile işlem yapar.
@@ -54,7 +58,6 @@ export class UserService {
   //     where, // benden sadece id ve username istiyor.
   //   });
   // }
-
 
   // async updateUser(params: {
   //   // İki parametreli bir obje alır. Biri update yapılıcak kısım diğeri user.
