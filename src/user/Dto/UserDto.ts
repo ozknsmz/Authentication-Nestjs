@@ -1,35 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsString,
-} from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class UserDto {
-  @IsNotEmpty({message: 'The name cannot empty!'})
-  @IsString()
-  @ApiProperty({  
-    required: true,
-    description: 'The name'
-  })
-  name: string;
+  //Controller içerisinde @body() içerisine eklediğin validationpipe sayesinde hata mesajları otomatik döndürülür.
 
-  @IsNotEmpty({message: 'The username cannot empty!'})
+  @IsNotEmpty()
   @IsString()
-  @ApiProperty({
-    required: true,
-    description: 'The username'
-  })
-  username: string;
+  public name: string;
 
-  @IsNotEmpty({message: 'The password cannot empty!'})
+  @IsNotEmpty()
   @IsString()
-  @ApiProperty({
-    required: true,
-    description: 'User password',
-    minLength: 7,
-  })
-  password: string;
+  public username: string;
 
+  @IsNotEmpty()
+  @IsString()
+  public password: string;
 
   // @IsNotEmpty()
   // @IsString()
@@ -40,5 +25,4 @@ export class UserDto {
   //   example: 'john@doe.com',
   // })
   // email: string;
-  
 }

@@ -16,6 +16,7 @@ import { PrismaService } from 'src/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import { UserDto } from './Dto/UserDto';
 
+
 @Controller('')
 export class UserController {
   constructor(
@@ -30,10 +31,14 @@ export class UserController {
       where: userWhereUniqueInput,
     });
   }
-
-  @Post()
-  async create(@Body() userDto: UserDto) {
-    return this.userService.createUser(userDto);
+  
+  //TODO : Şuan databasede select kullanıyosun fakat rolleri görmek için where, include kullanmak gerekli.
+  //TODO:  Rollerin düzgün çalışması için Authentication(JWT) kısmını hallet. 
+  
+  @Post('create')
+  async create(@Body(ValidationPipe) data: UserDto) {
+    console.log(data);
+    return this.userService.createUser(data);
   }
 
   @Get('user/:id')
@@ -41,54 +46,19 @@ export class UserController {
     return this.userService.findOneUser(+id);
   }
 
+  @Get('all/users')
+  async getAllUsers(): Promise<UserModule[]> {
+    return this.userService.findAll();
+  }
+
   @Delete('deleted/:id')
   async deleteUser(@Param('id') id: string): Promise<UserModule> {
     return this.userService.deleteUser(+id);
   }
 
-  
-
   // @Delete()
   // async deleteAll(){
   //   return this.prisma.user.delete();
-  // }
-
-
-  // @Post('/user')
-  // async createUser(
-  //   @Body()
-  //   userData: {
-  //     username: string;
-  //     password: string;
-  //     name?: string;
-  //   }, // createUserInput 4 parametre alır.
-  // ): Promise<UserModule> {
-  //   return this.userService.createUser(userData);
-  // }
-
-  //   @Post('user')
-  //   async addUser(@Body() data: Prisma.UserCreateInput): Promise<User> {
-  //     // user oluşturur.
-  //     return this.prisma.user.create({
-  //       data,
-  //     });
-  // }
-
-  // @Post('/user')
-  // @HttpCode(200)
-  // @UsePipes(ValidationPipe)
-  // createUser(@Body() userData: UserDto){
-  //   return { data: userData}
-  // }
-
-  // @Get('all/users')
-  // async getAllUsers(): Promise<UserModule[]> {
-  //   return this.prisma.user.findMany()
-  // }
-
-  // @Delete('deleted/:id')
-  // async deleteUser(@Param('id') id: string): Promise<UserModule> {
-  //   return this.prisma.user.delete({ where: { id: Number(id) } });
   // }
 
   // @Get('user/:id')
