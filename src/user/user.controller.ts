@@ -21,6 +21,15 @@ export class UserController {
     });
   }
 
+
+  @Post()
+  async create(@Body() userDto : UserDto){
+    return this.userService.createUser(userDto)
+  }
+
+
+
+
   // @Post('/user')
   // async createUser(
   //   @Body()
@@ -48,20 +57,21 @@ export class UserController {
   //   return { data: userData}
   // }
 
-  @Get('all/users')
-  async getAllUsers(): Promise<UserModule[]> {
-    return this.prisma.user.findMany()
-  }
 
-  @Delete('deleted/:id')
-  async deleteUser(@Param('id') id: string): Promise<UserModule> {
-    return this.prisma.user.delete({ where: { id: Number(id) } });
-  }
+  // @Get('all/users')
+  // async getAllUsers(): Promise<UserModule[]> {
+  //   return this.prisma.user.findMany()
+  // }
 
-  @Get('user/:id')
-  async getUserById(@Param('id') id: string): Promise<UserModule> {
-    return this.prisma.user.findUnique({ where: { id: Number(id) } });
-  }
+  // @Delete('deleted/:id')
+  // async deleteUser(@Param('id') id: string): Promise<UserModule> {
+  //   return this.prisma.user.delete({ where: { id: Number(id) } });
+  // }
+
+  // @Get('user/:id')
+  // async getUserById(@Param('id') id: string): Promise<UserModule> {
+  //   return this.prisma.user.findUnique({ where: { id: Number(id) } });
+  // }
 
 
   }

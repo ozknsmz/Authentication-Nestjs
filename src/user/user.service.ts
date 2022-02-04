@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User, Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
+import { UserDto } from './Dto/UserDto';
 
 @Injectable()
 export class UserService {
@@ -30,20 +31,29 @@ export class UserService {
       orderBy,
     });
   }
-
-  async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    // user oluşturur.
+  
+  async createUser(createUserDto: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
-      data,
+      data : createUserDto,
     });
   }
 
-  async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
-    // delete yapılıcak kullanıcının id'si ile işlem yapar.
-    return this.prisma.user.delete({
-      where, // benden sadece id ve username istiyor.
-    });
+  async findAll(){
+    return this.prisma.user.findMany();
   }
+
+  async findOne(id: number){
+    return this.prisma.user.findUnique({ where:{id}})
+  }
+
+
+
+  // async deleteUser(where: Prisma.UserWhereUniqueInput): Promise<User> {
+  //   // delete yapılıcak kullanıcının id'si ile işlem yapar.
+  //   return this.prisma.user.delete({
+  //     where, // benden sadece id ve username istiyor.
+  //   });
+  // }
 
 
   // async updateUser(params: {
