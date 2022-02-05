@@ -5,13 +5,10 @@ import {
   Delete,
   Body,
   Param,
-  HttpCode,
-  UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserModule } from './user.module';
-import { FindOneParams } from './findOneParams';
 import { PrismaService } from 'src/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import { UserDto } from './Dto/UserDto';
@@ -37,7 +34,6 @@ export class UserController {
   
   @Post('create')
   async create(@Body(ValidationPipe) data: UserDto) {
-    console.log(data);
     return this.userService.createUser(data);
   }
 
