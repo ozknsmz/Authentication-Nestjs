@@ -20,7 +20,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('profile/:id')
   async getProfile(@Param('id') id:string): Promise<AuthModule> {
-    return this.userService.findOneWithId(+id);
+    return this.
   }
 
 }
