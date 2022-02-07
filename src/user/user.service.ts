@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User, Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
-import { UserDto } from './Dto/UserDto';
+
 
 @Injectable()
 export class UserService {
@@ -16,7 +16,7 @@ export class UserService {
   }
 
   async users(params: {
-    skip?: 1;
+    skip?: 1;    "name" : "özkan"
     take?: number;
     cursor?: Prisma.UserWhereUniqueInput;
     where?: Prisma.UserWhereInput;
@@ -48,9 +48,20 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
-  async findOneUser(id: number) {
+  async findOneWithId(id: number) {
     return this.prisma.user.findUnique({ where: { id } });
   }
+
+  async findOneWithUsername(username: string) {
+    return this.prisma.user.findUnique({ where: { username } });
+  }
+
+  async getUser(getUserInput: Prisma.UserCreateInput): Promise<User> {
+    return this.prisma.user.create({
+      data : getUserInput,
+    });
+  }
+  
 
   // async updateUser(params: {
   //   // İki parametreli bir obje alır. Biri update yapılıcak kısım diğeri user.

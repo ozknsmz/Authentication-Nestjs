@@ -12,6 +12,7 @@ import { UserModule } from './user.module';
 import { PrismaService } from 'src/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import { UserDto } from './Dto/UserDto';
+import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
 
 /* // TODO: JWT Authentication: 
   - https://progressivecoder.com/how-to-implement-nestjs-jwt-authentication-using-jwt-strategy/#:~:text=In%20this%20post%2C%20we%20will,as%20the%20token%20is%20valid.
@@ -34,28 +35,34 @@ export class UserController {
     });
   }
   
-  //TODO : Şuan databasede select kullanıyosun fakat rolleri görmek için where, include kullanmak gerekli.
+  //TODO : Şuan databasede select kullanıyosun fakat rolleri görmek için where, include kullanmak gerekli. : https://www.prisma.io/docs/concepts/components/prisma-client/crud
   //TODO:  Rollerin düzgün çalışması için Authentication(JWT) kısmını hallet. 
   
-  @Post('create')
+  @Post('create') // create User
   async create(@Body(ValidationPipe) data: UserDto) {
     return this.userService.createUser(data);
   }
 
-  @Get('user/:id')
+  @Get('user/:id') // get user with id
   async findUser(@Param('id') id: string): Promise<UserModule> {
-    return this.userService.findOneUser(+id);
+    return this.userService.findOneWithId(+id);
   }
 
-  @Get('all/users')
+  @Get('username/:username')  // get user with username
+  async findUserUsername(@Param('username') username: string): Promise<UserModule> {
+    return this.userService.findOneWithUsername(username);
+  }
+
+  @Get('all/users') // get all users
   async getAllUsers(): Promise<UserModule[]> {
     return this.userService.findAll();
   }
 
-  @Delete('deleted/:id')
+  @Delete('deleted/:id')  // deleted user
   async deleteUser(@Param('id') id: string): Promise<UserModule> {
     return this.userService.deleteUser(+id);
   }
+
 
   // @Delete()
   // async deleteAll(){
