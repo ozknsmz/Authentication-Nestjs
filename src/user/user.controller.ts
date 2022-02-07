@@ -12,7 +12,6 @@ import { UserModule } from './user.module';
 import { PrismaService } from 'src/prisma.service';
 import { User, Prisma } from '@prisma/client';
 import { UserDto } from './Dto/UserDto';
-import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
 
 /* // TODO: JWT Authentication: 
   - https://progressivecoder.com/how-to-implement-nestjs-jwt-authentication-using-jwt-strategy/#:~:text=In%20this%20post%2C%20we%20will,as%20the%20token%20is%20valid.
@@ -63,14 +62,4 @@ export class UserController {
     return this.userService.deleteUser(+id);
   }
 
-
-  // @Delete()
-  // async deleteAll(){
-  //   return this.prisma.user.delete();
-  // }
-
-  // @Get('user/:id')
-  // async getUserById(@Param('id') id: string): Promise<UserModule> {
-  //   return this.prisma.user.findUnique({ where: { id: Number(id) } });
-  // }
 }
