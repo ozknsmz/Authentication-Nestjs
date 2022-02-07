@@ -1,7 +1,6 @@
 
 import { Controller, Post, UseGuards, Body, ValidationPipe, Get, Param } from '@nestjs/common';
 import { LoginDto } from 'src/user/Dto/LoginDto';
-import { UserModule } from 'src/user/user.module';
 import { AuthModule } from './auth.module';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -17,10 +16,12 @@ export class AuthController {
     return this.authService.login(data);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('profile/:id')
-  async getProfile(@Param('id') id:string): Promise<AuthModule> {
-    return this.
-  }
+  // comment line : token check edilerek get methodu oluştur.
+  
+  // @UseGuards(JwtAuthGuard)
+  // @Get('profile/:id')
+  // async getProfile(@Param('id') id:string): Promise<AuthModule> {
+  //   return this.
+  // }
 
 }
