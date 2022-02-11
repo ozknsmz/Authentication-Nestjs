@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  url      = "postgresql://postgres:root@localhost:5432/Nest"
+  url      = "postgresql://postgres:1234@localhost:5432/Nest"
   provider = "postgresql"
 }
 
