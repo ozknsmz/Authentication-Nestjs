@@ -7,6 +7,7 @@ import { UserModule } from 'src/user/user.module';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 
 @Controller('')
@@ -15,6 +16,7 @@ export class AuthController {
     ,private userService: UserService) {}
 
   @Post('auth/login')
+  @UseGuards(LocalAuthGuard)
   async login(@Body(ValidationPipe) data: LoginDto) {
     return this.authService.login(data);
   }
