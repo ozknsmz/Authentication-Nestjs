@@ -1,27 +1,30 @@
 
 import { Controller, Post, UseGuards, Body, ValidationPipe, Get, Param } from '@nestjs/common';
+import { Role } from 'src/Role/role.enum';
+import { Roles } from 'src/Role/roles.decorator';
 import { LoginDto } from 'src/user/Dto/LoginDto';
-import { AuthModule } from './auth.module';
+import { UserModule } from 'src/user/user.module';
+import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { LocalAuthGuard } from './guards/local-auth.guard';
+import { RolesGuard } from './guards/roles.guard';
 
 @Controller('')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService
+    ,private userService: UserService) {}
 
-  @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async create(@Body(ValidationPipe) data: LoginDto) {
+  async login(@Body(ValidationPipe) data: LoginDto) {
     return this.authService.login(data);
   }
 
   // comment line : token check edilerek get methodu oluştur.
-  
-  // @UseGuards(JwtAuthGuard)
-  // @Get('profile/:id')
-  // async getProfile(@Param('id') id:string): Promise<AuthModule> {
-  //   return this.
-  // }
+  @Roles(Role.USER)
+  @UseGuards(JwtAuthGuard,RolesGuard)
+  @Get('profile/:id')
+  async getProfile(@Param('id') id:string): Promise<UserModule> {
+    return this.userService.findOneWithId(+id);
+  }
 
 }

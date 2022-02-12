@@ -13,6 +13,7 @@ model User{
   username String @unique
   password String?
   userRole User_Role[]
+  user_role Role_type @default(USER)
 }
 
 model Role{
