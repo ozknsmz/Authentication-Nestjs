@@ -5,7 +5,6 @@ import { PrismaService } from 'src/prisma.service';
 import { ROLES_KEY } from 'src/Role/roles.decorator';
 import { UserModule } from 'src/user/user.module';
 import { UserService } from 'src/user/user.service';
-
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(
@@ -26,15 +25,14 @@ export class RolesGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
     const User = this.userService.findOneWithUsername(user.username);
-    // User.then((res) => {
-    //   // console.log(requiredRoles.some((role) => res.user_role?.includes(role)));
-    //   return requiredRoles.some((role) => res.user_role?.includes(role));
-    // });
+    User.then((res) => {
+      return requiredRoles.some((role) => res.user_role?.includes(role));
+    });
 
-    return requiredRoles.some((role) =>
-      User.then((res) => {
-        requiredRoles.some((role) => res.user_role?.includes(role));
-      })
-    );
+    // return requiredRoles.some((role) =>
+    //   User.then((res) => {
+    //     requiredRoles.some((role) => res.user_role?.includes(role));
+    //   })
+    // );
   }
 }
