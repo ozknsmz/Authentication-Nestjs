@@ -51,20 +51,19 @@ export class UserController {
   // async findUser(@Param('id') id: string): Promise<UserModule> {
   //   return this.userService.findOneWithId(+id);
   // }
-  @UseGuards(LocalAuthGuard)
   @Get('username/:username') // get user with username
   async findUserUsername(
     @Param('username') username: string,
   ): Promise<UserModule> {
+    console.log(this.userService.findOneWithUsername(username));
     return this.userService.findOneWithUsername(username);
   }
 
-  @UseGuards(LocalAuthGuard)
   @Get('all/users') // get all users
   async getAllUsers(): Promise<UserModule[]> {
     return this.userService.findAll();
   }
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete('deleted/:id') // deleted user
   async deleteUser(@Param('id') id: string): Promise<UserModule> {
     return this.userService.deleteUser(+id);
