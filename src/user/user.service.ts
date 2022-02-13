@@ -52,7 +52,7 @@ export class UserService {
     return this.prisma.user.findUnique({ where: { id } });
   }
 
-  async findOneWithUsername(username: string) {
+  async findOneWithUsername(username: string) {    
     return this.prisma.user.findUnique({ where: { username } });
   }
 
@@ -61,7 +61,6 @@ export class UserService {
       data : getUserInput,
     });
   }
-  
 
   // async updateUser(params: {
   //   // İki parametreli bir obje alır. Biri update yapılıcak kısım diğeri user.
