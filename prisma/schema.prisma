@@ -18,7 +18,6 @@ model User{
 
 model Role{
   id Int @id @default(autoincrement())
-  user_role Role_type @default(USER)
   assignedAt DateTime @default(now())
   author_name String
   author_id Int @unique
@@ -27,6 +26,7 @@ model Role{
 
 model User_Role{
   id Int @id @default(autoincrement())
+  user_role Role_type @default(USER)
   user_id Int @unique
   user User @relation(fields:[user_id], references:[id] )
   role_id Int @unique
