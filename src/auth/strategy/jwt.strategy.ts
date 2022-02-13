@@ -15,15 +15,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  /*Validate: jwt stratejisi için, Passport önce JWT'nin imzasını doğrular ve JSON'un kodunu çözer.
-  Ardından, kodu çözülmüş JSON'u tek parametresi olarak 
-  ileten validate() yöntemimizi çağırır. 
-  JWT imzalamanın çalışma şekline bağlı olarak, daha önce imzaladığımız 
-  ve geçerli bir kullanıcıya verdiğimiz geçerli bir jeton aldığımız garanti edilmektedir.
-  */
   async validate(payload: any){
       return{
-          user: payload.user
+          ...payload
       };
   }
 }
