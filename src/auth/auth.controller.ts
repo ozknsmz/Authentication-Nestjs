@@ -22,7 +22,7 @@ export class AuthController {
   }
 
   // comment line : token check edilerek get methodu oluştur.
-  @Roles(Role.USER)
+  @Roles(Role.ADMIN)
   @UseGuards(JwtAuthGuard,RolesGuard)
   @Get('profile/:id')
   async getProfile(@Param('id') id:string): Promise<UserModule> {

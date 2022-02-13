@@ -16,7 +16,7 @@ export class UserService {
   }
 
   async users(params: {
-    skip?: 1;    "name" : "özkan"
+    skip?: 1; 
     take?: number;
     cursor?: Prisma.UserWhereUniqueInput;
     where?: Prisma.UserWhereInput;

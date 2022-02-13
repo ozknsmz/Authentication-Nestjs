@@ -10,7 +10,6 @@ export class RolesGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
     private userService: UserService,
-    private prisma: PrismaService,
   ) {}
 
   canActivate(context: ExecutionContext): boolean {
@@ -21,14 +20,13 @@ export class RolesGuard implements CanActivate {
     if (!requiredRoles) {
       return true;
     }
-
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-    const User = this.userService.findOneWithUsername(user.username);
-    User.then((res) => {
-      return requiredRoles.some((role) => res.user_role?.includes(role));
-    });
-
+    const User = this.userService.findOneWithUsername(user.username)
+      User.then((res) => {
+        return requiredRoles.some((role) => res.user_role?.includes(role));
+      });
+    
     // return requiredRoles.some((role) =>
     //   User.then((res) => {
     //     requiredRoles.some((role) => res.user_role?.includes(role));
