@@ -1,40 +1,138 @@
+
+
 generator client {
-  provider = "prisma-client-js"
+provider = "prisma-client-js"
 }
 
 datasource db {
-  url      = "postgresql://postgres:1234@localhost:5432/Nest"
-  provider = "postgresql"
+url = "postgresql://postgres:1234@localhost:5432/StockSystem"
+provider = "postgresql"
 }
 
-model User{
-  id Int @id @default(autoincrement()) 
-  name String?
-  username String @unique
-  password String?
-  userRole User_Role[]
-  user_role Role_type @default(USER)
+model User {
+id Int @id @default(autoincrement())
+username String @unique
+password String
+name String
+surname String
+profile_photo Bytes?
+email String @unique
+roles User_Role[]
+created_at DateTime @default(now())
 }
 
-model Role{
-  id Int @id @default(autoincrement())
-  assignedAt DateTime @default(now())
-  author_name String
-  author_id Int @unique
-  userRole User_Role[]
+model Role {
+id Int @id @default(autoincrement())
+user_type User_Type
+users User_Role[]
 }
 
-model User_Role{
-  id Int @id @default(autoincrement())
-  user_role Role_type @default(USER)
-  user_id Int @unique
-  user User @relation(fields:[user_id], references:[id] )
-  role_id Int @unique
-  role Role @relation(fields:[role_id],references:[id])
+model User_Role {
+user User @relation(fields: [userId], references: [id])
+role Role @relation(fields: [roleId], references: [id])
+userId Int
+roleId Int
+
+@@id([userId, roleId])
 }
 
-enum Role_type{
-    USER
-    ADMIN
-    SUPERADMIN
+model Product {
+id Int @id @default(autoincrement())
+productName String
+product_model String @unique
+productDescription String?
+productImages Bytes?
+is_Salable Boolean
+gtinNumber Int @unique
+historical Json
+Product_Category Product_Category[]
+brand Brand @relation(fields: [brandId], references: [id])
+brandId Int
+
+Product_in_Stock Product_in_Stock[]
 }
+
+model Category {
+id Int @id @default(autoincrement())
+category_name String @unique
+Product_Category Product_Category[]
+}
+
+model Product_Category {
+id Int @id @default(autoincrement())
+product Product @relation(fields: [productId], references: [id])
+category Category @relation(fields: [categoryId], references: [id])
+productId Int
+categoryId Int
+}
+
+model Brand {
+id Int @id @default(autoincrement())
+brand_name String @unique
+product Product[]
+}
+
+model Stock {
+id Int @id @default(autoincrement())
+stock_code String @unique
+stock_description String?
+quantity Int
+list_price Decimal
+Product_in_Stock Product_in_Stock[]
+Stock_in_Store Stock_in_Store[]
+}
+
+model Product_in_Stock {
+id Int @id @default(autoincrement())
+product Product @relation(fields: [productId], references: [id])
+stock Stock @relation(fields: [stockId], references: [id])
+createdAt DateTime
+updatedAt DateTime
+productId Int
+stockId Int
+}
+
+model Store {
+id Int @id @default(autoincrement())
+storeName String @unique
+Stock_in_Store Stock_in_Store[]
+address Address @relation(fields: [addressId], references: [id])
+addressId Int
+}
+
+model Stock_in_Store {
+id Int @id @default(autoincrement())
+stock Stock @relation(fields: [stockId], references: [id])
+store Store @relation(fields: [storeId], references: [id])
+entryAt DateTime
+updatedAt DateTime
+stockId Int
+storeId Int
+}
+
+model Address {
+id Int @id @default(autoincrement())
+country String
+city String
+district String
+ApartNo Int
+companyName String?
+postal_code String?
+phoneNumber String?
+name String?
+userId Int?
+Store Store[]
+}
+
+
+
+
+
+
+
+enum User_Type {
+USER
+ADMIN
+}
+
+
